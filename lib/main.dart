@@ -35,7 +35,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-var risultato=-1;
+String risultato="";
 String StringaUtente= "";
 var stream;
 String numeriUsciti="";
@@ -56,9 +56,14 @@ Future<void> prova() async {
  init();
  await for(var data in stream){
    setState(() {
-     risultato=data;
+     risultato=data.toString();
    });
    await Future.delayed(const Duration(seconds: 1));
+   setState(() {
+     risultato="";
+        });
+           await Future.delayed(const Duration(milliseconds: 100));
+
  }
 }
 
@@ -73,6 +78,7 @@ bool controllo(){
     return true;
     
   }else{
+    cont=3;
      StringaUtente="";
     numeriUsciti="";
     return false;
@@ -89,6 +95,12 @@ bool controllo(){
        child: Column(
        mainAxisAlignment: .center,
       children:[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("PUNTEGGIO:${cont-3}",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+          ],
+        ),
         Container(
          
           width: 250,
@@ -106,7 +118,7 @@ bool controllo(){
           ),
           child: Center(
             child: Text(
-              risultato.toString(),
+              risultato,
                 style: TextStyle(
                  fontSize: 65,
                  fontWeight: FontWeight.bold,
